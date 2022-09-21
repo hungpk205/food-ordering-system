@@ -4,9 +4,6 @@ import com.food.ordering.system.domain.entity.BaseEntity;
 import com.food.ordering.system.domain.valueobject.Money;
 import com.food.ordering.system.domain.valueobject.ProductId;
 
-import java.util.Objects;
-import java.util.UUID;
-
 public class Product extends BaseEntity<ProductId> {
     private String name;
     private Money price;
@@ -27,19 +24,6 @@ public class Product extends BaseEntity<ProductId> {
 
     public Money getPrice() {
         return price;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-        Product product = (Product) o;
-        return name.equals(product.name) && price.equals(product.price);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, price);
     }
 
     public void updateWithConfirmedNameAndPrice(String name, Money price) {

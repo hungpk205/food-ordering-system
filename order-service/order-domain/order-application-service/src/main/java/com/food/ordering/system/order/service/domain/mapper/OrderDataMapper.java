@@ -13,6 +13,7 @@ import com.food.ordering.system.order.service.domain.dto.create.CreateOrderComma
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
 import com.food.ordering.system.order.service.domain.dto.create.OrderAddress;
 import com.food.ordering.system.order.service.domain.dto.create.OrderItemCreate;
+import com.food.ordering.system.order.service.domain.dto.track.TrackOrderResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -64,5 +65,13 @@ public class OrderDataMapper {
                                   .orderStatus(order.getOrderStatus())
                                   .message(message)
                                   .build();
+    }
+
+    public TrackOrderResponse orderToTrackOrderResponse(Order order) {
+        return TrackOrderResponse.builder()
+                                 .orderTrackingId(order.getTrackingId().getValue())
+                                 .orderStatus(order.getOrderStatus())
+                                 .failureMessages(order.getFailureMessages())
+                                 .build();
     }
 }

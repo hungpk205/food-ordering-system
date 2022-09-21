@@ -4,21 +4,35 @@ import com.food.ordering.system.order.service.domain.dto.create.CreateOrderComma
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
 import com.food.ordering.system.order.service.domain.dto.track.TrackOrderQuery;
 import com.food.ordering.system.order.service.domain.dto.track.TrackOrderResponse;
+import com.food.ordering.system.order.service.domain.handler.OrderCreateCommandHandler;
+import com.food.ordering.system.order.service.domain.handler.OrderTrackingCommandHandler;
 import com.food.ordering.system.order.service.domain.ports.input.service.OrderApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
 @Slf4j
-public class OrderApplicationServiceImpl implements OrderApplicationService {
+@Validated
+class OrderApplicationServiceImpl implements OrderApplicationService {
+
+    private final OrderCreateCommandHandler orderCreateCommandHandler;
+
+    private final OrderTrackingCommandHandler orderTrackingCommandHandler;
+
+    OrderApplicationServiceImpl(final OrderCreateCommandHandler orderCreateCommandHandler,
+                                final OrderTrackingCommandHandler orderTrackingCommandHandler) {
+        this.orderCreateCommandHandler = orderCreateCommandHandler;
+        this.orderTrackingCommandHandler = orderTrackingCommandHandler;
+    }
+
     @Override
     public CreateOrderResponse createOrder(final CreateOrderCommand createOrderCommand) {
-        return null;
+        return orderCreateCommandHandler.createOrder(createOrderCommand);
     }
 
     @Override
     public TrackOrderResponse trackOrder(final TrackOrderQuery trackOrderQuery) {
-        return null;
-
+        return orderTrackingCommandHandler.trackOrder(trackOrderQuery);
     }
 }
